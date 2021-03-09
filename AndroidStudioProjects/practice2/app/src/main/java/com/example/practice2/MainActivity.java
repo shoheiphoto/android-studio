@@ -3,9 +3,12 @@ package com.example.practice2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     TextView textview;  //変数定義
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 count += 1;
                 textview.setText(Integer.toString(count));
+                Log.d ("CurrentTime", new Date().toString() );
             }
         });
         Button right_btn = (Button)findViewById(R.id.button2);
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 count = 0;
                 textview.setText(Integer.toString(count));
                 // textview.setText(Integer.toString(result));
+                Log.d ("CurrentTime2", new Date().toString() );
             }
         });
     }
