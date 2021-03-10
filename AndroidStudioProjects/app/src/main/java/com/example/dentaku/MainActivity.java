@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.dentaku;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.dentaku.R;
 
 import java.math.BigDecimal;
 
@@ -234,25 +236,31 @@ public class MainActivity extends AppCompatActivity {
         btnEql.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double answer = 0;
                 number2 = numberText.getText().toString();
+
+                BigDecimal answer = new BigDecimal("0");
+                BigDecimal bd1 = new BigDecimal(number1);
+                BigDecimal bd2 = new BigDecimal(number2);
+
+//                double answer = 0;
+//                number2 = numberText.getText().toString();
 
                 if(number1 != "" && number2 != "" && cal != ""){
                     switch (cal) {
                         case "+":
-                            answer = Double.parseDouble(number1) + Double.parseDouble(number2);
+                            answer = bd1.add(bd2);
                             displayText.setText(number1 + " + " + number2 + " = ");
                             break;
                         case "-":
-                            answer = Double.parseDouble(number1) - Double.parseDouble(number2);
+                            answer = bd1.subtract(bd2);
                             displayText.setText(number1 + " - " + number2 + " = ");
                             break;
                         case "*":
-                            answer = Double.parseDouble(number1) * Double.parseDouble(number2);
+                            answer = bd1.multiply(bd2);
                             displayText.setText(number1 + " × " + number2 + " = ");
                             break;
                         case "/":
-                            answer = Double.parseDouble(number1) / Double.parseDouble(number2);
+                            answer = bd1.divide(bd2);
                             displayText.setText(number1 + " ÷ " + number2 + " = ");
                             break;
                         default:
@@ -261,12 +269,8 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                 }
 
-                if(answer == (int) answer) {
-                    numberText.setText(String.format("%d",(long)answer));
-                } else {
-                    BigDecimal answer2 = BigDecimal.valueOf(answer);
-                    numberText.setText(answer2.toString());
-                }
+                answer = answer.stripTrailingZeros();
+                numberText.setText(answer.toString());
 
                 number1 = "0";
                 number2 = "0";
