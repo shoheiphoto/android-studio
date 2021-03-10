@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 number2 = "0";
                 cal = "";
                 numberText.setText("");
+                displayText.setText("");
             }
         });
 
@@ -193,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
                 number1 = numberText.getText().toString();
                 cal = "-";
                 numberText.setText("");
+                displayText.setText(number1 + " - ");
             }
         });
 
@@ -202,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
                 number1 = numberText.getText().toString();
                 cal = "+";
                 numberText.setText("");
+                displayText.setText(number1 + " + ");
             }
         });
 
@@ -211,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
                 number1 = numberText.getText().toString();
                 cal = "*";
                 numberText.setText("");
+                displayText.setText(number1 + " × ");
             }
         });
 
