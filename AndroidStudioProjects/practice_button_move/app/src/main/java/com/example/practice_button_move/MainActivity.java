@@ -2,6 +2,8 @@ package com.example.practice_button_move;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import org.w3c.dom.Text;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+
 
 
 
@@ -46,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 //        button4.setOnLongClickListener(new Button4LongClickListener());
 
 
-
     }
 
     class Button1ClickListener implements View.OnClickListener {
@@ -54,22 +56,48 @@ public class MainActivity extends AppCompatActivity {
             TextView txtview = (TextView) findViewById(R.id.ID_TXTVIEW);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
-            txtview.setText("左？");
+            txtview.setText("ひだり？");
             mlp.setMargins(mlp.leftMargin - 40, mlp.topMargin, mlp.rightMargin + 40, mlp.bottomMargin);
             txtview.setLayoutParams(mlp);
 
-            Random rand = new Random();
-            int num1 = rand.nextInt(60) - 120;
-            int num2 = rand.nextInt(60) - 120;
-            int num3 = rand.nextInt(60) - 120;
-            int num4 = rand.nextInt(60) - 120;
+            int num1 = new Random().nextInt(300) - 150;
+            int num2 = new Random().nextInt(300) - 150;
             TextView txtview2 = (TextView) findViewById(R.id.Button01);
             ViewGroup.LayoutParams lp2 = txtview2.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp2 = (ViewGroup.MarginLayoutParams)lp2;
-            txtview2.setText("適当に動いときます");
-            mlp2.setMargins(mlp2.leftMargin + num1, mlp2.topMargin + num2, mlp2.rightMargin + num3, mlp2.bottomMargin + num4);
+            txtview2.setText("うろうろ");
+            mlp2.setMargins(mlp2.leftMargin + num1, mlp2.topMargin + num2, mlp2.rightMargin - num1, mlp2.bottomMargin - num2);
             txtview2.setLayoutParams(mlp2);
+
+            txtview.setTextColor(Color.BLACK);
+            txtview2.setTextColor(Color.BLACK);
+
+            View star = (View)findViewById(R.id.ID_Star);
+            View midori = (View)findViewById(R.id.ID_MIDORI);
+
+            if (isViewOverlapping(star, midori)){
+                txtview.setTextColor(Color.GREEN);
+                txtview2.setTextColor(Color.GREEN);
+                txtview.setText("こんにちは");
+                txtview2.setText("こんにちは");
+            };
         }
+
+        private boolean isViewOverlapping(View firstView, View secondView) {
+            int[] firstPosition = new int[2];
+            int[] secondPosition = new int[2];
+
+            firstView.getLocationOnScreen(firstPosition);
+            secondView.getLocationOnScreen(secondPosition);
+
+            // Rect constructor parameters: left, top, right, bottom
+            Rect rectFirstView = new Rect(firstPosition[0], firstPosition[1],
+                    firstPosition[0] + firstView.getMeasuredWidth(), firstPosition[1] + firstView.getMeasuredHeight());
+            Rect rectSecondView = new Rect(secondPosition[0], secondPosition[1],
+                    secondPosition[0] + secondView.getMeasuredWidth(), secondPosition[1] + secondView.getMeasuredHeight());
+            return rectFirstView.intersect(rectSecondView);
+        }
+
     }
 
     class Button2ClickListener implements View.OnClickListener {
@@ -77,23 +105,48 @@ public class MainActivity extends AppCompatActivity {
             TextView txtview = (TextView)findViewById(R.id.ID_TXTVIEW);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
-            txtview.setText("右？");
+            txtview.setText("みぎ？");
             mlp.setMargins(mlp.leftMargin + 40, mlp.topMargin, mlp.rightMargin - 40, mlp.bottomMargin);
             txtview.setLayoutParams(mlp);
 
-
-            Random rand = new Random();
-            int num1 = rand.nextInt(60) - 120;
-            int num2 = rand.nextInt(60) - 120;
-            int num3 = rand.nextInt(60) - 120;
-            int num4 = rand.nextInt(60) - 120;
+            int num1 = new Random().nextInt(300) - 150;
+            int num2 = new Random().nextInt(300) - 150;
             TextView txtview2 = (TextView) findViewById(R.id.Button01);
             ViewGroup.LayoutParams lp2 = txtview2.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp2 = (ViewGroup.MarginLayoutParams)lp2;
-            txtview2.setText("適当に動いときます");
-            mlp2.setMargins(mlp2.leftMargin + num1, mlp2.topMargin + num2, mlp2.rightMargin + num3, mlp2.bottomMargin + num4);
+            txtview2.setText("うろうろ");
+            mlp2.setMargins(mlp2.leftMargin + num1, mlp2.topMargin + num2, mlp2.rightMargin - num1, mlp2.bottomMargin - num2);
             txtview2.setLayoutParams(mlp2);
+
+            txtview.setTextColor(Color.BLACK);
+            txtview2.setTextColor(Color.BLACK);
+
+            View star = (View)findViewById(R.id.ID_Star);
+            View midori = (View)findViewById(R.id.ID_MIDORI);
+
+            if (isViewOverlapping(star, midori)){
+                txtview.setTextColor(Color.GREEN);
+                txtview2.setTextColor(Color.GREEN);
+                txtview.setText("こんにちは");
+                txtview2.setText("こんにちは");
+            };
         }
+
+        private boolean isViewOverlapping(View firstView, View secondView) {
+            int[] firstPosition = new int[2];
+            int[] secondPosition = new int[2];
+
+            firstView.getLocationOnScreen(firstPosition);
+            secondView.getLocationOnScreen(secondPosition);
+
+            // Rect constructor parameters: left, top, right, bottom
+            Rect rectFirstView = new Rect(firstPosition[0], firstPosition[1],
+                    firstPosition[0] + firstView.getMeasuredWidth(), firstPosition[1] + firstView.getMeasuredHeight());
+            Rect rectSecondView = new Rect(secondPosition[0], secondPosition[1],
+                    secondPosition[0] + secondView.getMeasuredWidth(), secondPosition[1] + secondView.getMeasuredHeight());
+            return rectFirstView.intersect(rectSecondView);
+        }
+
     }
 
     class Button3ClickListener implements View.OnClickListener {
@@ -101,47 +154,96 @@ public class MainActivity extends AppCompatActivity {
             TextView txtview = (TextView) findViewById(R.id.ID_TXTVIEW);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
-            txtview.setText("上？");
+            txtview.setText("うえ？");
             mlp.setMargins(mlp.leftMargin, mlp.topMargin - 40, mlp.rightMargin, mlp.bottomMargin + 40);
             txtview.setLayoutParams(mlp);
 
-
-            Random rand = new Random();
-            int num1 = rand.nextInt(60) - 120;
-            int num2 = rand.nextInt(60) - 120;
-            int num3 = rand.nextInt(60) - 120;
-            int num4 = rand.nextInt(60) - 120;
+            int num1 = new Random().nextInt(300) - 150;
+            int num2 = new Random().nextInt(300) - 150;
             TextView txtview2 = (TextView) findViewById(R.id.Button01);
             ViewGroup.LayoutParams lp2 = txtview2.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp2 = (ViewGroup.MarginLayoutParams)lp2;
-            txtview2.setText("適当に動いときます");
-            mlp2.setMargins(mlp2.leftMargin + num1, mlp2.topMargin + num2, mlp2.rightMargin + num3, mlp2.bottomMargin + num4);
+            txtview2.setText("うろうろ");
+            mlp2.setMargins(mlp2.leftMargin + num1, mlp2.topMargin + num2, mlp2.rightMargin - num1, mlp2.bottomMargin - num2);
             txtview2.setLayoutParams(mlp2);
-        }
-    }
 
+            txtview.setTextColor(Color.BLACK);
+            txtview2.setTextColor(Color.BLACK);
+
+            View star = (View)findViewById(R.id.ID_Star);
+            View midori = (View)findViewById(R.id.ID_MIDORI);
+
+            if (isViewOverlapping(star, midori)){
+                txtview.setTextColor(Color.GREEN);
+                txtview2.setTextColor(Color.GREEN);
+                txtview.setText("こんにちは");
+                txtview2.setText("こんにちは");
+            };
+        }
+
+        private boolean isViewOverlapping(View firstView, View secondView) {
+            int[] firstPosition = new int[2];
+            int[] secondPosition = new int[2];
+
+            firstView.getLocationOnScreen(firstPosition);
+            secondView.getLocationOnScreen(secondPosition);
+
+            // Rect constructor parameters: left, top, right, bottom
+            Rect rectFirstView = new Rect(firstPosition[0], firstPosition[1],
+                    firstPosition[0] + firstView.getMeasuredWidth(), firstPosition[1] + firstView.getMeasuredHeight());
+            Rect rectSecondView = new Rect(secondPosition[0], secondPosition[1],
+                    secondPosition[0] + secondView.getMeasuredWidth(), secondPosition[1] + secondView.getMeasuredHeight());
+            return rectFirstView.intersect(rectSecondView);
+        }
+
+    }
     class Button4ClickListener implements View.OnClickListener {
         public void onClick(View v) {
             TextView txtview = (TextView)findViewById(R.id.ID_TXTVIEW);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
-            txtview.setText("下？");
+            txtview.setText("した？");
             mlp.setMargins(mlp.leftMargin, mlp.topMargin + 40, mlp.rightMargin, mlp.bottomMargin - 40);
             txtview.setLayoutParams(mlp);
 
-
-            Random rand = new Random();
-            int num1 = rand.nextInt(60) - 120;
-            int num2 = rand.nextInt(60) - 120;
-            int num3 = rand.nextInt(60) - 120;
-            int num4 = rand.nextInt(60) - 120;
+            int num1 = new Random().nextInt(300) - 150;
+            int num2 = new Random().nextInt(300) - 150;
             TextView txtview2 = (TextView) findViewById(R.id.Button01);
             ViewGroup.LayoutParams lp2 = txtview2.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp2 = (ViewGroup.MarginLayoutParams)lp2;
-            txtview2.setText("適当に動いときます");
-            mlp2.setMargins(mlp2.leftMargin + num1, mlp2.topMargin + num2, mlp2.rightMargin + num3, mlp2.bottomMargin + num4);
+            txtview2.setText("うろうろ");
+            mlp2.setMargins(mlp2.leftMargin + num1, mlp2.topMargin + num2, mlp2.rightMargin - num1, mlp2.bottomMargin - num2);
             txtview2.setLayoutParams(mlp2);
+
+            txtview.setTextColor(Color.BLACK);
+            txtview2.setTextColor(Color.BLACK);
+
+            View star = (View)findViewById(R.id.ID_Star);
+            View midori = (View)findViewById(R.id.ID_MIDORI);
+
+            if (isViewOverlapping(star, midori)){
+                txtview.setTextColor(Color.GREEN);
+                txtview2.setTextColor(Color.GREEN);
+                txtview.setText("こんにちは");
+                txtview2.setText("こんにちは");
+            };
         }
+
+        private boolean isViewOverlapping(View firstView, View secondView) {
+            int[] firstPosition = new int[2];
+            int[] secondPosition = new int[2];
+
+            firstView.getLocationOnScreen(firstPosition);
+            secondView.getLocationOnScreen(secondPosition);
+
+            // Rect constructor parameters: left, top, right, bottom
+            Rect rectFirstView = new Rect(firstPosition[0], firstPosition[1],
+                    firstPosition[0] + firstView.getMeasuredWidth(), firstPosition[1] + firstView.getMeasuredHeight());
+            Rect rectSecondView = new Rect(secondPosition[0], secondPosition[1],
+                    secondPosition[0] + secondView.getMeasuredWidth(), secondPosition[1] + secondView.getMeasuredHeight());
+            return rectFirstView.intersect(rectSecondView);
+        }
+
     }
 
 
@@ -154,18 +256,11 @@ public class MainActivity extends AppCompatActivity {
             mlp.setMargins(mlp.leftMargin = 0, mlp.topMargin = 0, mlp.rightMargin = 0, mlp.bottomMargin = 0);
             txtview.setLayoutParams(mlp);
 
-
-
-            Random rand = new Random();
-            int num1 = rand.nextInt(60) - 120;
-            int num2 = rand.nextInt(60) - 120;
-            int num3 = rand.nextInt(60) - 120;
-            int num4 = rand.nextInt(60) - 120;
             TextView txtview2 = (TextView) findViewById(R.id.Button01);
             ViewGroup.LayoutParams lp2 = txtview2.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp2 = (ViewGroup.MarginLayoutParams)lp2;
-            txtview2.setText("適当に動いときます");
-            mlp2.setMargins(mlp2.leftMargin + num1, mlp2.topMargin + num2, mlp2.rightMargin + num3, mlp2.bottomMargin + num4);
+            txtview2.setText("おかえり");
+            mlp2.setMargins(mlp2.leftMargin = 0, mlp2.topMargin = 0, mlp2.rightMargin = 0, mlp2.bottomMargin = 0);
             txtview2.setLayoutParams(mlp2);
         }
     }
@@ -180,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
             TextView txtview = (TextView)findViewById(R.id.ID_TXTVIEW);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
-            txtview.setText("左！");
+            txtview.setText("ひだり！");
             mlp.setMargins(mlp.leftMargin - 120, mlp.topMargin, mlp.rightMargin + 120, mlp.bottomMargin);
             txtview.setLayoutParams(mlp);
             return false;
@@ -193,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
             TextView txtview = (TextView)findViewById(R.id.ID_TXTVIEW);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
-            txtview.setText("右！");
+            txtview.setText("みぎ！");
             mlp.setMargins(mlp.leftMargin + 120, mlp.topMargin, mlp.rightMargin - 120, mlp.bottomMargin);
             txtview.setLayoutParams(mlp);
             return false;
@@ -206,10 +301,10 @@ public class MainActivity extends AppCompatActivity {
             TextView txtview = (TextView)findViewById(R.id.ID_TXTVIEW);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
-            txtview.setText("上！");
+            txtview.setText("うえ！");
             mlp.setMargins(mlp.leftMargin, mlp.topMargin - 120, mlp.rightMargin, mlp.bottomMargin + 120);
             txtview.setLayoutParams(mlp);
-            return true;
+            return false;
         }
     }
 
@@ -219,10 +314,12 @@ public class MainActivity extends AppCompatActivity {
             TextView txtview = (TextView)findViewById(R.id.ID_TXTVIEW);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
-            txtview.setText("下！");
+            txtview.setText("した！");
             mlp.setMargins(mlp.leftMargin, mlp.topMargin + 120, mlp.rightMargin, mlp.bottomMargin - 120);
             txtview.setLayoutParams(mlp);
-            return true;
+            return false;
         }
     }
+
+
 }
