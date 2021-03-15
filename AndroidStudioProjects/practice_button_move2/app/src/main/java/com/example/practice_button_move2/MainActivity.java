@@ -20,10 +20,6 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,13 +47,18 @@ public class MainActivity extends AppCompatActivity {
 
         Button button5 = (Button)findViewById(R.id.ID_BTN5);
         button5.setOnClickListener(new Button5ClickListener());;
-//        button4.setOnLongClickListener(new Button4LongClickListener());
 
         ImageButton ib_midori = (ImageButton)findViewById(R.id.ID_MIDORI);
         ib_midori.setOnTouchListener(new MidoriTouchListener());;
 
         ImageButton ib_star = (ImageButton)findViewById(R.id.ID_Star);
         ib_star.setOnTouchListener(new StarTouchListener());;
+
+        Button button_big = (Button)findViewById(R.id.ID_Big);
+        button_big.setOnClickListener(new ButtonBigClickListener());;
+
+        Button button_small = (Button)findViewById(R.id.ID_Small);
+        button_small.setOnClickListener(new ButtonSmallClickListener());;
 
     }
 
@@ -79,13 +80,34 @@ public class MainActivity extends AppCompatActivity {
         public boolean onTouch(View v, MotionEvent event) {
             TextView txtview = (TextView) findViewById(R.id.Button01);
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                txtview.setText("星だよ");
+                txtview.setText("スターだよ");
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 txtview.setText("ほんとだよ");
             }
             return false;
         }
     }
+
+    class ButtonBigClickListener implements View.OnClickListener {
+        public void onClick(View v) {
+            View midori = (View)findViewById(R.id.ID_MIDORI);
+            ViewGroup.LayoutParams midoriParams = midori.getLayoutParams();
+            midoriParams.height *= 1.2;
+            midoriParams.width *= 1.2;
+            midori.setLayoutParams(midoriParams);
+        }
+    }
+
+    class ButtonSmallClickListener implements View.OnClickListener {
+        public void onClick(View v) {
+            View midori = (View)findViewById(R.id.ID_MIDORI);
+            ViewGroup.LayoutParams midoriParams = midori.getLayoutParams();
+            midoriParams.height *= 0.8;
+            midoriParams.width *= 0.8;
+            midori.setLayoutParams(midoriParams);
+        }
+    }
+
 
 
 
@@ -364,6 +386,8 @@ public class MainActivity extends AppCompatActivity {
             txtview2.setLayoutParams(mlp2);
         }
     }
+
+
 
 
 
