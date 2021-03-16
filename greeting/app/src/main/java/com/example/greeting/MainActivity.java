@@ -20,6 +20,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     int num = 0;
+    int num2 = 0;
 
 
     @Override
@@ -98,9 +99,9 @@ public class MainActivity extends AppCompatActivity {
         txtview1.setText("つかまった");
         txtview3.setText("つかまえた");
 
-        TextView count = (TextView)findViewById(R.id.aisatsu_count);
-        num -= 1;
-        count.setText(String.valueOf(num));
+        TextView count = (TextView)findViewById(R.id.onigokko_count);
+        num2 += 1;
+        count.setText(String.valueOf(num2));
     }
 
 
@@ -115,8 +116,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void batsuMove(TextView txtview3) {
-        int num1 = new Random().nextInt(300) - 150;
-        int num2 = new Random().nextInt(300) - 150;
+        int num1 = new Random().nextInt(400) - 200;
+        int num2 = new Random().nextInt(400) - 200;
         ViewGroup.LayoutParams lp2 = txtview3.getLayoutParams();
         ViewGroup.MarginLayoutParams mlp2 = (ViewGroup.MarginLayoutParams)lp2;
         txtview3.setText("おーい");
@@ -401,8 +402,10 @@ public class MainActivity extends AppCompatActivity {
             midori.setLayoutParams(midoriParams);
 
             TextView count = (TextView)findViewById(R.id.aisatsu_count);
+            TextView count2 = (TextView)findViewById(R.id.onigokko_count);
             num = 0;
             count.setText(String.valueOf(num));
+            count2.setText(String.valueOf(num));
         }
     }
 
