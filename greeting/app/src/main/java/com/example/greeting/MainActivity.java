@@ -19,6 +19,8 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    int num = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +81,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    protected void greeting(TextView txtview, TextView txtview2) {
-        txtview.setTextColor(Color.GREEN);
+    protected void greeting(TextView txtview1, TextView txtview2) {
+        txtview1.setTextColor(Color.GREEN);
         txtview2.setTextColor(Color.GREEN);
-        txtview.setText("こんにちは");
+        txtview1.setText("こんにちは");
         txtview2.setText("こんにちは");
+
+        TextView count = (TextView)findViewById(R.id.aisatsu_count);
+        num += 1;
+        count.setText(String.valueOf(num));
+    }
+
+    protected void onigokko(TextView txtview1, TextView txtview3) {
+        txtview1.setTextColor(Color.RED);
+        txtview3.setTextColor(Color.RED);
+        txtview1.setText("つかまった");
+        txtview3.setText("つかまえた");
+
+        TextView count = (TextView)findViewById(R.id.aisatsu_count);
+        num -= 1;
+        count.setText(String.valueOf(num));
     }
 
 
@@ -97,6 +114,16 @@ public class MainActivity extends AppCompatActivity {
         txtview2.setLayoutParams(mlp2);
     }
 
+    protected void batsuMove(TextView txtview3) {
+        int num1 = new Random().nextInt(300) - 150;
+        int num2 = new Random().nextInt(300) - 150;
+        ViewGroup.LayoutParams lp2 = txtview3.getLayoutParams();
+        ViewGroup.MarginLayoutParams mlp2 = (ViewGroup.MarginLayoutParams)lp2;
+        txtview3.setText("おーい");
+        mlp2.setMargins(mlp2.leftMargin + num1, mlp2.topMargin + num2, mlp2.rightMargin - num1, mlp2.bottomMargin - num2);
+        txtview3.setLayoutParams(mlp2);
+    }
+
 
 
 
@@ -105,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
     class MidoriTouchListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            TextView txtview = (TextView) findViewById(R.id.ID_TXTVIEW);
+            TextView txtview = (TextView) findViewById(R.id.ID_TextMidori);
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 txtview.setText("ごはん？");
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -118,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
     class StarTouchListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            TextView txtview = (TextView) findViewById(R.id.Button01);
+            TextView txtview = (TextView) findViewById(R.id.ID_TextStar);
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 txtview.setText("ほしだよ");
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -152,24 +179,31 @@ public class MainActivity extends AppCompatActivity {
 
     class Button1ClickListener implements View.OnClickListener {
         public void onClick(View v) {
-            TextView txtview = (TextView) findViewById(R.id.ID_TXTVIEW);
+            TextView txtview = (TextView) findViewById(R.id.ID_TextMidori);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
             txtview.setText("ひだり？");
             mlp.setMargins(mlp.leftMargin - 40, mlp.topMargin, mlp.rightMargin + 40, mlp.bottomMargin);
             txtview.setLayoutParams(mlp);
 
-            TextView txtview2 = (TextView) findViewById(R.id.Button01);
+            TextView txtview2 = (TextView) findViewById(R.id.ID_TextStar);
+            TextView txtview3 = (TextView) findViewById(R.id.ID_TextBatsu);
             starMove(txtview2);
+            batsuMove(txtview3);
 
             txtview.setTextColor(Color.BLACK);
             txtview2.setTextColor(Color.BLACK);
+            txtview3.setTextColor(Color.BLACK);
 
             View star = (View)findViewById(R.id.ID_Star);
             View midori = (View)findViewById(R.id.ID_MIDORI);
+            View batsu = (View)findViewById(R.id.ID_Batsu);
 
             if (isViewOverlapping(star, midori)){
                 greeting(txtview,txtview2);
+            };
+            if (isViewOverlapping(batsu, midori)){
+                onigokko(txtview,txtview3);
             };
         }
 
@@ -179,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
     class Button1OnTouchListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            TextView txtview = (TextView) findViewById(R.id.ID_TXTVIEW);
+            TextView txtview = (TextView) findViewById(R.id.ID_TextMidori);
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 txtview.setTextColor(Color.BLUE);
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -191,24 +225,31 @@ public class MainActivity extends AppCompatActivity {
 
     class Button2ClickListener implements View.OnClickListener {
         public void onClick(View v) {
-            TextView txtview = (TextView)findViewById(R.id.ID_TXTVIEW);
+            TextView txtview = (TextView)findViewById(R.id.ID_TextMidori);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
             txtview.setText("みぎ？");
             mlp.setMargins(mlp.leftMargin + 40, mlp.topMargin, mlp.rightMargin - 40, mlp.bottomMargin);
             txtview.setLayoutParams(mlp);
 
-            TextView txtview2 = (TextView) findViewById(R.id.Button01);
+            TextView txtview2 = (TextView) findViewById(R.id.ID_TextStar);
+            TextView txtview3 = (TextView) findViewById(R.id.ID_TextBatsu);
             starMove(txtview2);
+            batsuMove(txtview3);
 
             txtview.setTextColor(Color.BLACK);
             txtview2.setTextColor(Color.BLACK);
+            txtview3.setTextColor(Color.BLACK);
 
             View star = (View)findViewById(R.id.ID_Star);
             View midori = (View)findViewById(R.id.ID_MIDORI);
+            View batsu = (View)findViewById(R.id.ID_Batsu);
 
             if (isViewOverlapping(star, midori)){
                 greeting(txtview,txtview2);
+            };
+            if (isViewOverlapping(batsu, midori)){
+                onigokko(txtview,txtview3);
             };
         }
 
@@ -222,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
     class Button2OnTouchListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            TextView txtview = (TextView) findViewById(R.id.ID_TXTVIEW);
+            TextView txtview = (TextView) findViewById(R.id.ID_TextMidori);
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 txtview.setTextColor(Color.BLUE);
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -234,24 +275,31 @@ public class MainActivity extends AppCompatActivity {
 
     class Button3ClickListener implements View.OnClickListener {
         public void onClick(View v) {
-            TextView txtview = (TextView) findViewById(R.id.ID_TXTVIEW);
+            TextView txtview = (TextView) findViewById(R.id.ID_TextMidori);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
             txtview.setText("うえ？");
             mlp.setMargins(mlp.leftMargin, mlp.topMargin - 40, mlp.rightMargin, mlp.bottomMargin + 40);
             txtview.setLayoutParams(mlp);
 
-            TextView txtview2 = (TextView) findViewById(R.id.Button01);
+            TextView txtview2 = (TextView) findViewById(R.id.ID_TextStar);
+            TextView txtview3 = (TextView) findViewById(R.id.ID_TextBatsu);
             starMove(txtview2);
+            batsuMove(txtview3);
 
             txtview.setTextColor(Color.BLACK);
             txtview2.setTextColor(Color.BLACK);
+            txtview3.setTextColor(Color.BLACK);
 
             View star = (View)findViewById(R.id.ID_Star);
             View midori = (View)findViewById(R.id.ID_MIDORI);
+            View batsu = (View)findViewById(R.id.ID_Batsu);
 
             if (isViewOverlapping(star, midori)){
                 greeting(txtview,txtview2);
+            };
+            if (isViewOverlapping(batsu, midori)){
+                onigokko(txtview,txtview3);
             };
         }
 
@@ -263,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
     class Button3OnTouchListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            TextView txtview = (TextView) findViewById(R.id.ID_TXTVIEW);
+            TextView txtview = (TextView) findViewById(R.id.ID_TextMidori);
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 txtview.setTextColor(Color.BLUE);
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -276,24 +324,31 @@ public class MainActivity extends AppCompatActivity {
 
     class Button4ClickListener implements View.OnClickListener {
         public void onClick(View v) {
-            TextView txtview = (TextView)findViewById(R.id.ID_TXTVIEW);
+            TextView txtview = (TextView)findViewById(R.id.ID_TextMidori);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
             txtview.setText("した？");
             mlp.setMargins(mlp.leftMargin, mlp.topMargin + 40, mlp.rightMargin, mlp.bottomMargin - 40);
             txtview.setLayoutParams(mlp);
 
-            TextView txtview2 = (TextView) findViewById(R.id.Button01);
+            TextView txtview2 = (TextView) findViewById(R.id.ID_TextStar);
+            TextView txtview3 = (TextView) findViewById(R.id.ID_TextBatsu);
             starMove(txtview2);
+            batsuMove(txtview3);
 
             txtview.setTextColor(Color.BLACK);
             txtview2.setTextColor(Color.BLACK);
+            txtview3.setTextColor(Color.BLACK);
 
             View star = (View)findViewById(R.id.ID_Star);
             View midori = (View)findViewById(R.id.ID_MIDORI);
+            View batsu = (View)findViewById(R.id.ID_Batsu);
 
             if (isViewOverlapping(star, midori)){
                 greeting(txtview,txtview2);
+            };
+            if (isViewOverlapping(batsu, midori)){
+                onigokko(txtview,txtview3);
             };
         }
     }
@@ -302,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
     class Button4OnTouchListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            TextView txtview = (TextView) findViewById(R.id.ID_TXTVIEW);
+            TextView txtview = (TextView) findViewById(R.id.ID_TextMidori);
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 txtview.setTextColor(Color.BLUE);
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -315,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
 
     class Button5ClickListener implements View.OnClickListener {
         public void onClick(View v) {
-            TextView txtview = (TextView) findViewById(R.id.ID_TXTVIEW);
+            TextView txtview = (TextView) findViewById(R.id.ID_TextMidori);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
             txtview.setTextColor(Color.BLACK);
@@ -323,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
             mlp.setMargins(mlp.leftMargin = 0, mlp.topMargin = 0, mlp.rightMargin = 0, mlp.bottomMargin = 0);
             txtview.setLayoutParams(mlp);
 
-            TextView txtview2 = (TextView) findViewById(R.id.Button01);
+            TextView txtview2 = (TextView) findViewById(R.id.ID_TextStar);
             ViewGroup.LayoutParams lp2 = txtview2.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp2 = (ViewGroup.MarginLayoutParams)lp2;
             txtview2.setTextColor(Color.BLACK);
@@ -331,11 +386,23 @@ public class MainActivity extends AppCompatActivity {
             mlp2.setMargins(mlp2.leftMargin = 0, mlp2.topMargin = 0, mlp2.rightMargin = 0, mlp2.bottomMargin = 0);
             txtview2.setLayoutParams(mlp2);
 
+            TextView txtview3 = (TextView) findViewById(R.id.ID_TextBatsu);
+            ViewGroup.LayoutParams lp3 = txtview3.getLayoutParams();
+            ViewGroup.MarginLayoutParams mlp3 = (ViewGroup.MarginLayoutParams)lp3;
+            txtview3.setTextColor(Color.BLACK);
+            txtview3.setText("またあそぼうね");
+            mlp3.setMargins(mlp3.leftMargin = 0, mlp3.topMargin = 0, mlp3.rightMargin = 0, mlp3.bottomMargin = 0);
+            txtview3.setLayoutParams(mlp3);
+
             View midori = (View)findViewById(R.id.ID_MIDORI);
             ViewGroup.LayoutParams midoriParams = midori.getLayoutParams();
             midoriParams.height = 120;
             midoriParams.width = 120;
             midori.setLayoutParams(midoriParams);
+
+            TextView count = (TextView)findViewById(R.id.aisatsu_count);
+            num = 0;
+            count.setText(String.valueOf(num));
         }
     }
 
@@ -346,7 +413,7 @@ public class MainActivity extends AppCompatActivity {
     class Button1LongClickListener implements View.OnLongClickListener {
         @Override
         public boolean onLongClick(View v) {
-            TextView txtview = (TextView)findViewById(R.id.ID_TXTVIEW);
+            TextView txtview = (TextView)findViewById(R.id.ID_TextMidori);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
             txtview.setText("ひだり！");
@@ -359,7 +426,7 @@ public class MainActivity extends AppCompatActivity {
     class Button2LongClickListener implements View.OnLongClickListener {
         @Override
         public boolean onLongClick(View v) {
-            TextView txtview = (TextView)findViewById(R.id.ID_TXTVIEW);
+            TextView txtview = (TextView)findViewById(R.id.ID_TextMidori);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
             txtview.setText("みぎ！");
@@ -372,7 +439,7 @@ public class MainActivity extends AppCompatActivity {
     class Button3LongClickListener implements View.OnLongClickListener {
         @Override
         public boolean onLongClick(View v) {
-            TextView txtview = (TextView)findViewById(R.id.ID_TXTVIEW);
+            TextView txtview = (TextView)findViewById(R.id.ID_TextMidori);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
             txtview.setText("うえ！");
@@ -385,7 +452,7 @@ public class MainActivity extends AppCompatActivity {
     class Button4LongClickListener implements View.OnLongClickListener {
         @Override
         public boolean onLongClick(View v) {
-            TextView txtview = (TextView)findViewById(R.id.ID_TXTVIEW);
+            TextView txtview = (TextView)findViewById(R.id.ID_TextMidori);
             ViewGroup.LayoutParams lp = txtview.getLayoutParams();
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)lp;
             txtview.setText("した！");
