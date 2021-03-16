@@ -63,6 +63,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    protected boolean isViewOverlapping(View firstView, View secondView) {
+        int[] firstPosition = new int[2];
+        int[] secondPosition = new int[2];
+
+        firstView.getLocationOnScreen(firstPosition);
+        secondView.getLocationOnScreen(secondPosition);
+
+        // Rect constructor parameters: left, top, right, bottom
+        Rect rectFirstView = new Rect(firstPosition[0], firstPosition[1],
+                firstPosition[0] + firstView.getMeasuredWidth(), firstPosition[1] + firstView.getMeasuredHeight());
+        Rect rectSecondView = new Rect(secondPosition[0], secondPosition[1],
+                secondPosition[0] + secondView.getMeasuredWidth(), secondPosition[1] + secondView.getMeasuredHeight());
+        return rectFirstView.intersect(rectSecondView);
+    }
+
+
+    protected void greeting(TextView txtview, TextView txtview2) {
+        txtview.setTextColor(Color.GREEN);
+        txtview2.setTextColor(Color.GREEN);
+        txtview.setText("こんにちは");
+        txtview2.setText("こんにちは");
+    }
+
+
+    protected void starMove(TextView txtview2) {
+        int num1 = new Random().nextInt(300) - 150;
+        int num2 = new Random().nextInt(300) - 150;
+        ViewGroup.LayoutParams lp2 = txtview2.getLayoutParams();
+        ViewGroup.MarginLayoutParams mlp2 = (ViewGroup.MarginLayoutParams)lp2;
+        txtview2.setText("うろうろ");
+        mlp2.setMargins(mlp2.leftMargin + num1, mlp2.topMargin + num2, mlp2.rightMargin - num1, mlp2.bottomMargin - num2);
+        txtview2.setLayoutParams(mlp2);
+    }
+
+
+
+
+
+
     class MidoriTouchListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -75,12 +114,13 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     }
+
     class StarTouchListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             TextView txtview = (TextView) findViewById(R.id.Button01);
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                txtview.setText("スターだよ");
+                txtview.setText("ほしだよ");
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 txtview.setText("ほんとだよ");
             }
@@ -110,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
     class Button1ClickListener implements View.OnClickListener {
         public void onClick(View v) {
             TextView txtview = (TextView) findViewById(R.id.ID_TXTVIEW);
@@ -120,14 +159,8 @@ public class MainActivity extends AppCompatActivity {
             mlp.setMargins(mlp.leftMargin - 40, mlp.topMargin, mlp.rightMargin + 40, mlp.bottomMargin);
             txtview.setLayoutParams(mlp);
 
-            int num1 = new Random().nextInt(300) - 150;
-            int num2 = new Random().nextInt(300) - 150;
             TextView txtview2 = (TextView) findViewById(R.id.Button01);
-            ViewGroup.LayoutParams lp2 = txtview2.getLayoutParams();
-            ViewGroup.MarginLayoutParams mlp2 = (ViewGroup.MarginLayoutParams)lp2;
-            txtview2.setText("うろうろ");
-            mlp2.setMargins(mlp2.leftMargin + num1, mlp2.topMargin + num2, mlp2.rightMargin - num1, mlp2.bottomMargin - num2);
-            txtview2.setLayoutParams(mlp2);
+            starMove(txtview2);
 
             txtview.setTextColor(Color.BLACK);
             txtview2.setTextColor(Color.BLACK);
@@ -136,26 +169,8 @@ public class MainActivity extends AppCompatActivity {
             View midori = (View)findViewById(R.id.ID_MIDORI);
 
             if (isViewOverlapping(star, midori)){
-                txtview.setTextColor(Color.GREEN);
-                txtview2.setTextColor(Color.GREEN);
-                txtview.setText("こんにちは");
-                txtview2.setText("こんにちは");
+                greeting(txtview,txtview2);
             };
-        }
-
-        private boolean isViewOverlapping(View firstView, View secondView) {
-            int[] firstPosition = new int[2];
-            int[] secondPosition = new int[2];
-
-            firstView.getLocationOnScreen(firstPosition);
-            secondView.getLocationOnScreen(secondPosition);
-
-            // Rect constructor parameters: left, top, right, bottom
-            Rect rectFirstView = new Rect(firstPosition[0], firstPosition[1],
-                    firstPosition[0] + firstView.getMeasuredWidth(), firstPosition[1] + firstView.getMeasuredHeight());
-            Rect rectSecondView = new Rect(secondPosition[0], secondPosition[1],
-                    secondPosition[0] + secondView.getMeasuredWidth(), secondPosition[1] + secondView.getMeasuredHeight());
-            return rectFirstView.intersect(rectSecondView);
         }
 
     }
@@ -183,14 +198,8 @@ public class MainActivity extends AppCompatActivity {
             mlp.setMargins(mlp.leftMargin + 40, mlp.topMargin, mlp.rightMargin - 40, mlp.bottomMargin);
             txtview.setLayoutParams(mlp);
 
-            int num1 = new Random().nextInt(300) - 150;
-            int num2 = new Random().nextInt(300) - 150;
             TextView txtview2 = (TextView) findViewById(R.id.Button01);
-            ViewGroup.LayoutParams lp2 = txtview2.getLayoutParams();
-            ViewGroup.MarginLayoutParams mlp2 = (ViewGroup.MarginLayoutParams)lp2;
-            txtview2.setText("うろうろ");
-            mlp2.setMargins(mlp2.leftMargin + num1, mlp2.topMargin + num2, mlp2.rightMargin - num1, mlp2.bottomMargin - num2);
-            txtview2.setLayoutParams(mlp2);
+            starMove(txtview2);
 
             txtview.setTextColor(Color.BLACK);
             txtview2.setTextColor(Color.BLACK);
@@ -199,29 +208,13 @@ public class MainActivity extends AppCompatActivity {
             View midori = (View)findViewById(R.id.ID_MIDORI);
 
             if (isViewOverlapping(star, midori)){
-                txtview.setTextColor(Color.GREEN);
-                txtview2.setTextColor(Color.GREEN);
-                txtview.setText("こんにちは");
-                txtview2.setText("こんにちは");
+                greeting(txtview,txtview2);
             };
         }
 
 
 
-        private boolean isViewOverlapping(View firstView, View secondView) {
-            int[] firstPosition = new int[2];
-            int[] secondPosition = new int[2];
 
-            firstView.getLocationOnScreen(firstPosition);
-            secondView.getLocationOnScreen(secondPosition);
-
-            // Rect constructor parameters: left, top, right, bottom
-            Rect rectFirstView = new Rect(firstPosition[0], firstPosition[1],
-                    firstPosition[0] + firstView.getMeasuredWidth(), firstPosition[1] + firstView.getMeasuredHeight());
-            Rect rectSecondView = new Rect(secondPosition[0], secondPosition[1],
-                    secondPosition[0] + secondView.getMeasuredWidth(), secondPosition[1] + secondView.getMeasuredHeight());
-            return rectFirstView.intersect(rectSecondView);
-        }
 
     }
 
@@ -248,14 +241,8 @@ public class MainActivity extends AppCompatActivity {
             mlp.setMargins(mlp.leftMargin, mlp.topMargin - 40, mlp.rightMargin, mlp.bottomMargin + 40);
             txtview.setLayoutParams(mlp);
 
-            int num1 = new Random().nextInt(300) - 150;
-            int num2 = new Random().nextInt(300) - 150;
             TextView txtview2 = (TextView) findViewById(R.id.Button01);
-            ViewGroup.LayoutParams lp2 = txtview2.getLayoutParams();
-            ViewGroup.MarginLayoutParams mlp2 = (ViewGroup.MarginLayoutParams)lp2;
-            txtview2.setText("うろうろ");
-            mlp2.setMargins(mlp2.leftMargin + num1, mlp2.topMargin + num2, mlp2.rightMargin - num1, mlp2.bottomMargin - num2);
-            txtview2.setLayoutParams(mlp2);
+            starMove(txtview2);
 
             txtview.setTextColor(Color.BLACK);
             txtview2.setTextColor(Color.BLACK);
@@ -264,27 +251,11 @@ public class MainActivity extends AppCompatActivity {
             View midori = (View)findViewById(R.id.ID_MIDORI);
 
             if (isViewOverlapping(star, midori)){
-                txtview.setTextColor(Color.GREEN);
-                txtview2.setTextColor(Color.GREEN);
-                txtview.setText("こんにちは");
-                txtview2.setText("こんにちは");
+                greeting(txtview,txtview2);
             };
         }
 
-        private boolean isViewOverlapping(View firstView, View secondView) {
-            int[] firstPosition = new int[2];
-            int[] secondPosition = new int[2];
 
-            firstView.getLocationOnScreen(firstPosition);
-            secondView.getLocationOnScreen(secondPosition);
-
-            // Rect constructor parameters: left, top, right, bottom
-            Rect rectFirstView = new Rect(firstPosition[0], firstPosition[1],
-                    firstPosition[0] + firstView.getMeasuredWidth(), firstPosition[1] + firstView.getMeasuredHeight());
-            Rect rectSecondView = new Rect(secondPosition[0], secondPosition[1],
-                    secondPosition[0] + secondView.getMeasuredWidth(), secondPosition[1] + secondView.getMeasuredHeight());
-            return rectFirstView.intersect(rectSecondView);
-        }
 
     }
 
@@ -312,14 +283,8 @@ public class MainActivity extends AppCompatActivity {
             mlp.setMargins(mlp.leftMargin, mlp.topMargin + 40, mlp.rightMargin, mlp.bottomMargin - 40);
             txtview.setLayoutParams(mlp);
 
-            int num1 = new Random().nextInt(300) - 150;
-            int num2 = new Random().nextInt(300) - 150;
             TextView txtview2 = (TextView) findViewById(R.id.Button01);
-            ViewGroup.LayoutParams lp2 = txtview2.getLayoutParams();
-            ViewGroup.MarginLayoutParams mlp2 = (ViewGroup.MarginLayoutParams)lp2;
-            txtview2.setText("うろうろ");
-            mlp2.setMargins(mlp2.leftMargin + num1, mlp2.topMargin + num2, mlp2.rightMargin - num1, mlp2.bottomMargin - num2);
-            txtview2.setLayoutParams(mlp2);
+            starMove(txtview2);
 
             txtview.setTextColor(Color.BLACK);
             txtview2.setTextColor(Color.BLACK);
@@ -328,28 +293,9 @@ public class MainActivity extends AppCompatActivity {
             View midori = (View)findViewById(R.id.ID_MIDORI);
 
             if (isViewOverlapping(star, midori)){
-                txtview.setTextColor(Color.GREEN);
-                txtview2.setTextColor(Color.GREEN);
-                txtview.setText("こんにちは");
-                txtview2.setText("こんにちは");
+                greeting(txtview,txtview2);
             };
         }
-
-        private boolean isViewOverlapping(View firstView, View secondView) {
-            int[] firstPosition = new int[2];
-            int[] secondPosition = new int[2];
-
-            firstView.getLocationOnScreen(firstPosition);
-            secondView.getLocationOnScreen(secondPosition);
-
-            // Rect constructor parameters: left, top, right, bottom
-            Rect rectFirstView = new Rect(firstPosition[0], firstPosition[1],
-                    firstPosition[0] + firstView.getMeasuredWidth(), firstPosition[1] + firstView.getMeasuredHeight());
-            Rect rectSecondView = new Rect(secondPosition[0], secondPosition[1],
-                    secondPosition[0] + secondView.getMeasuredWidth(), secondPosition[1] + secondView.getMeasuredHeight());
-            return rectFirstView.intersect(rectSecondView);
-        }
-
     }
 
 
@@ -384,10 +330,14 @@ public class MainActivity extends AppCompatActivity {
             txtview2.setText("おかえり");
             mlp2.setMargins(mlp2.leftMargin = 0, mlp2.topMargin = 0, mlp2.rightMargin = 0, mlp2.bottomMargin = 0);
             txtview2.setLayoutParams(mlp2);
+
+            View midori = (View)findViewById(R.id.ID_MIDORI);
+            ViewGroup.LayoutParams midoriParams = midori.getLayoutParams();
+            midoriParams.height = 120;
+            midoriParams.width = 120;
+            midori.setLayoutParams(midoriParams);
         }
     }
-
-
 
 
 
