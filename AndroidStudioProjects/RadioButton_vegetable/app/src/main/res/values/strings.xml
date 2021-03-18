@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">RadioButton_vegetable</string>
-    <string-array name="animals_array">
-        <item>いぬ</item>
-        <item>ねこ</item>
-        <item>ひつじ</item>
-    </string-array>
-</resources>
