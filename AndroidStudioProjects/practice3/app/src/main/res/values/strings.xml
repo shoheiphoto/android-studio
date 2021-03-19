@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">practice3</string>
+    <string name="title">お申込みフォーム</string>
+    <string name="name">お名前：</string>
+    <string name="address">住所：</string>
+    <string name="sei">性別：</string>
+    <string name="submit">送信</string>
+    <string name="man">男</string>
+    <string name="woman">女</string>
+    <string name="etc">他</string>
+</resources>
