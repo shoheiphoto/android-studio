@@ -17,7 +17,7 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView textView1, textView2;
+    TextView textView1, textView2, textView3;
     EditText editText;
 
     Button btn1, btn2, btn3;
@@ -25,9 +25,10 @@ public class MainActivity extends AppCompatActivity {
     Handler mHandler = new Handler();
     int time, goalTime;
     ToneGenerator tone;
-    boolean timeDisplay = true; //計測時間表示のON/OFF
+    boolean timeDisplay, isTimerWorking; //計測時間表示のON/OFF
 
     MediaPlayer mPlayer1;
+    String comment;
 
 
     @Override
@@ -42,19 +43,27 @@ public class MainActivity extends AppCompatActivity {
              -----------------------------------*/
         textView1 = (TextView)findViewById(R.id.textView);
         textView2 = (TextView)findViewById(R.id.textView2);
+        textView3 = (TextView)findViewById(R.id.textView6);
         editText = (EditText)findViewById(R.id.editText);
 
         btn1 = (Button)findViewById(R.id.button);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isTimerWorking) {
+                    tone.startTone(ToneGenerator.TONE_PROP_BEEP);
+                    timer.cancel();  // timerのschedule実行をキャンセルする
+                    textView1.setText(Integer.toString(time / 10) + "." + Integer.toString(time % 10) + "びょう!");
+                    isTimerWorking = false;
+                }
+
                 goalTime = Integer.parseInt(editText.getText().toString());
                 time = 0;
                 timer = new Timer(true);  //新しくtimerインスタンスを生成
                 timeDisplay = true; //計測時間を表示
+                isTimerWorking = true;
                 tone.startTone(ToneGenerator.TONE_PROP_BEEP);
 
-                onResume();
 
                 timer.schedule(new TimerTask() {
                     /* このメソッドはdelayで指定した時間後にperiodミリ秒ごとに実行される */
@@ -65,12 +74,12 @@ public class MainActivity extends AppCompatActivity {
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                if (timeDisplay == true) {
+//                                if (timeDisplay == true) {
                                     textView1.setText(Integer.toString(time / 10) + "." + Integer.toString(time % 10) + "びょう");
-                                    if (time / 10 > 5) {
+                                    if (time / 10 >= 5) {
                                         textView1.setText("");
                                     }
-                                }
+//                                }
                             }
                         });
                     }
@@ -84,10 +93,27 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 tone.startTone(ToneGenerator.TONE_PROP_BEEP);
                 timer.cancel();  // timerのschedule実行をキャンセルする
-//                timeGosa = 10 - time;
                 textView1.setText(Integer.toString(time / 10) + "." + Integer.toString(time % 10) + "びょう!");
                 Double checktime = time / 10.0 - goalTime;
-                textView2.setText(checktime.toString() + "びょうずれたよ");
+                if (checktime < 0) {
+                    checktime = (checktime * -1);
+                    comment = checktime.toString() + "びょうはやかったよ";
+                } else if (checktime == 0) {
+                    comment = goalTime + "びょうぴったり！すごすぎる！";
+                } else {
+                    comment = checktime.toString() + "びょうおそかったよ";
+                }
+                textView2.setText(comment);
+
+                if (checktime < 1) {
+                    textView3.setText("すばらしい！");
+                } else if (checktime < 3) {
+                    textView3.setText("おしかったね！");
+                } else if (checktime < 10) {
+                    textView3.setText("つぎはがんばろうね！");
+                } else {
+                    textView3.setText("まじめにやってね");
+                }
             }
         });
 
@@ -98,23 +124,27 @@ public class MainActivity extends AppCompatActivity {
                 tone.startTone(ToneGenerator.TONE_PROP_BEEP);
                 timer.cancel();  // timerのschedule実行をキャンセルする
                 time = 0;
+                isTimerWorking = false;
 
                 textView1.setText("たのしかったね");
                 textView2.setText("またちょうせんしてね");
+                textView3.setText("");
+//                onResume();
             }
         });
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-
-        if (mPlayer1 != null) {
-            mPlayer1.release();
-        }
-        mPlayer1 = MediaPlayer.create(MainActivity.this, R.raw.crrect_answer1);
-        mPlayer1.start();
-    }
+//    @Override
+//    protected void onResume(){
+    
+//        super.onResume();
+//
+//        if (mPlayer1 != null) {
+//            mPlayer1.release();
+//        }
+//        mPlayer1 = MediaPlayer.create(MainActivity.this, R.raw.cat1a);
+//        mPlayer1.start();
+//    }
 
 //    @Override
 //    protected void onStop() {

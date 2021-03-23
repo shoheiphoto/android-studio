@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     MyCountDownTimer count;
     MyCountDownTimer2 count2;
     ToneGenerator tone;
+    boolean isTimerWorking,isTimerWorking2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +32,13 @@ public class MainActivity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isTimerWorking2) {
+                    count.cancel();
+                    isTimerWorking2 = false;
+                }
                 count = new MyCountDownTimer(10000,1000);
                 count.start();
+                isTimerWorking2 = true;
             }
         });
 
@@ -62,16 +68,31 @@ public class MainActivity extends AppCompatActivity {
             Button btn = (Button)v;
             switch (btn.getId()) {
                 case R.id.button5min:
+                    if (isTimerWorking) {
+                        count2.cancel();
+                        isTimerWorking = false;
+                    }
                     count2 = new MyCountDownTimer2(5*60000,1000);
                     count2.start();
+                    isTimerWorking = true;
                     break;
                 case R.id.button3min:
+                    if (isTimerWorking) {
+                        count2.cancel();
+                        isTimerWorking = false;
+                    }
                     count2 = new MyCountDownTimer2(3*60000,1000);
                     count2.start();
+                    isTimerWorking = true;
                     break;
                 case R.id.button1min:
-                    count2 = new MyCountDownTimer2(1*60000,1000);
+                    if (isTimerWorking) {
+                        count2.cancel();
+                        isTimerWorking = false;
+                    }
+                    count2 = new MyCountDownTimer2(60000,1000);
                     count2.start();
+                    isTimerWorking = true;
                     break;
                 case R.id.buttonStop:
                     count2.cancel();

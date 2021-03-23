@@ -59,9 +59,17 @@
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
-            android:layout_height="116dp"
+            android:layout_height="67dp"
             android:gravity="center_horizontal"
             android:text="ごさ"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:gravity="center_horizontal"
+            android:text=""
             android:textSize="30sp" />
 
         <TableRow
